@@ -1,6 +1,10 @@
+'use strict';
+
+const wordList = await loadWordlist();
+
 async function loadWordlist(locale) {
     let selectedLocale = locale || 'pt-BR';
-    let wordlistUri = `wordlist/${selectedLocale}.json`;
+    let wordlistUri = `wordlists/${selectedLocale}.json`;
     let response = await fetch(wordlistUri);
 
     return await response.json();
@@ -62,7 +66,7 @@ function generateNumber(maxValue) {
     return dicesToInt(dices, maxValue);
 }
 
-function generatePassPhrase(nWords, wordList, hasSpecialSymbos, hasStartCase, hasNumber, maxPassPhraseLength = 64) {
+export default function generatePassPhrase(nWords, hasSpecialSymbos, hasStartCase, hasNumber, maxPassPhraseLength = 64) {
     let words = pickWords(nWords, wordList);
     const symbol = hasSpecialSymbos
             ? pickRandomSymbol()

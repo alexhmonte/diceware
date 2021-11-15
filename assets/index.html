@@ -5,16 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diceware Enterprise Password Generator</title>
-    <script src="index.js" defer></script>
-    <script>
-        var wordlist = [];
-
-        async function onInit() {
-            wordlist = await loadWordlist();
-        }
-    </script>
+    <script src="js/index.js" type="module"></script>
 </head>
-<body onload="onInit()">
-    
+<body>
+    <h2 id="passPhrase"></h2>
+    <button type="button" id="generatePasswordButton">Gerar Senha</button>
 </body>
 </html>
