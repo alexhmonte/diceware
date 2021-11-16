@@ -1,10 +1,10 @@
-const { src, dest, series} = require('gulp');
+const { src, dest, series, watch} = require('gulp');
 const rm = require('gulp-rm');
 const through2 = require('through2');
 const rename = require("gulp-rename");
-const run = require('gulp-run-command').default;
 const ts = require("gulp-typescript");
 const tsProject = ts.createProject('tsconfig.json');
+const { exec } = require("child_process");
 
 function clean() {
     return src('public/**/*', { read: false})
@@ -54,3 +54,6 @@ exports.default = series(
     copyAssets,
     buildWordLists
 );
+exports.dev = function() {
+    watch(['src/*.ts', 'assets/**/*'], exports.default);
+}

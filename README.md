@@ -1,4 +1,4 @@
-# Dicerare Password Generator
+# Diceware Password Generator
 
 ## Word lists
 The wordlists are stores in text files, encoded in UTF-8, on folder _wordlists_. The system's build will include only the words with 6 letters maximum.
