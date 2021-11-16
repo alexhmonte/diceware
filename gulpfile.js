@@ -3,6 +3,8 @@ const rm = require('gulp-rm');
 const through2 = require('through2');
 const rename = require("gulp-rename");
 const run = require('gulp-run-command').default;
+const ts = require("gulp-typescript");
+const tsProject = ts.createProject('tsconfig.json');
 
 function clean() {
     return src('public/**/*', { read: false})
@@ -10,7 +12,8 @@ function clean() {
 }
 
 function buildJs() {
-    return src('src/*.js')
+    return src('src/*.ts')
+        .pipe(tsProject())
         .pipe(dest('public/js/'));
 }
 

@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diceware Enterprise Password Generator</title>
-    <script src="js/index.js" type="module"></script>
+    <title>Gerador de Senhas Diceware</title>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/index.js" type="text/javascript" defer></script>
 </head>
 <body>
+    <h1>Gerador de Senhas Diceware</h1>
+    <form>
+        <button type="button" class="words" onclick="onGeneratePassword(5)">5 palavras</button>
+        <button type="button" class="words" onclick="onGeneratePassword(6)">6 palavras</button>
+        <button type="button" class="words" onclick="onGeneratePassword(7)">7 palavras</button>
+        <button type="button" class="words" onclick="onGeneratePassword(8)">8 palavras</button>
+        <button type="button" class="words" onclick="onGeneratePassword(9)">9 palavras</button>
+        <button type="button" class="words" onclick="onGeneratePassword(10)">10 palavras</button>
+    </form>
+    <button type="button" onclick="" >Gerar Senha</button>
     <h2 id="passPhrase"></h2>
-    <button type="button" id="generatePasswordButton">Gerar Senha</button>
 </body>
 </html>
