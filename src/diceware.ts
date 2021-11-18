@@ -65,7 +65,7 @@ function generateNumber(maxValue: number): number {
 
 export interface PasswordParameters {
     nWords: number;
-    hasSpecialSymbos?: boolean;
+    hasSpecialSymbols?: boolean;
     hasStartCase?: boolean;
     hasNumber?: boolean;
     maxPassPhraseLength?: number;
@@ -73,7 +73,7 @@ export interface PasswordParameters {
 
 export function generatePassword(options: PasswordParameters): string {
     let words = pickWords(options.nWords, wordList);
-    const symbol = options.hasSpecialSymbos ?? false
+    const symbol = options.hasSpecialSymbols ?? false
             ? pickRandomSymbol()
             : ' ';
     const numberMaxValue = 1000;

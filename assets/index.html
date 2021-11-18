@@ -6,19 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Senhas Diceware</title>
     <script src="js/main.js" type="module"></script>
-    <script src="js/index.js" type="text/javascript" defer></script>
+    <script src="js/index.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/switch.css">
 </head>
-<body>
+<body onload="onLoad()">
     <h1>Gerador de Senhas Diceware</h1>
-    <form>
-        <button type="button" class="words" onclick="onGeneratePassword(5)">5 palavras</button>
-        <button type="button" class="words" onclick="onGeneratePassword(6)">6 palavras</button>
-        <button type="button" class="words" onclick="onGeneratePassword(7)">7 palavras</button>
-        <button type="button" class="words" onclick="onGeneratePassword(8)">8 palavras</button>
-        <button type="button" class="words" onclick="onGeneratePassword(9)">9 palavras</button>
-        <button type="button" class="words" onclick="onGeneratePassword(10)">10 palavras</button>
-    </form>
-    <button type="button" onclick="" >Gerar Senha</button>
-    <h2 id="passPhrase"></h2>
+    <main>
+        <section>
+            <h2>Diceware</h2>
+            <p>
+                Diceware is used to generate cryptographically strong passphrases.
+                Don't let that frighten you away though, a passphrase is just a 
+                password made of words you can remember. It is based on the principle
+                that truly random selection of words from a wordlist, can result
+                in easily memorable passwords that are also extremely resistant 
+                to attack. Traditional Diceware uses rolls of physical dice, this 
+                application uses a strong random number generator in place of the dice.
+                Passwords that are six words or longer are thought to be safe for any
+                very high security applications.
+            </p>
+        </section>
+        <form>
+            <div class="password-buttons">
+                <button type="button" class="weak-password" onclick="onGeneratePassword(5);">5 palavras</button>
+                <button type="button" onclick="onGeneratePassword(6);">6 palavras</button>
+                <button type="button" onclick="onGeneratePassword(7);">7 palavras</button>
+                <button type="button" onclick="onGeneratePassword(8);">8 palavras</button>
+                <button type="button" onclick="onGeneratePassword(9);">9 palavras</button>
+                <button type="button" onclick="onGeneratePassword(10);">10 palavras</button>    
+            </div>
+            <div class="options">
+                <div class="switch">
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="hasSimbol">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div>Símbolo</div>
+                </div>    
+                <div class="switch">
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="hasNumber">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div>Número</div>
+                </div>    
+                <div class="switch">
+                    <div>
+                        <label class="switch">
+                            <input type="checkbox" id="hasUpcase">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div>Maiúscula</div>
+                </div>    
+                <div class="switch">
+                    <div>
+                        <div id="maxLengthDisplay"></div>
+                        <input type="range" id="maxLength" name="maxLength" min="8" max="256" step="8" value="128">
+                    </div>
+                    <label for="maxLength">Tamanho Máximo</label>
+                </div>
+            </div>
+            <div class="password" id="password"></div>
+            <button type="button" class="copy-button">Copiar</button>
+        </form>        
+    </main>
 </body>
 </html>

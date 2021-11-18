@@ -1,0 +1,117 @@
+body {
+    color: #f6bb43;
+    background: rgb(29, 31, 60) url(../img/right.png) right fixed no-repeat;
+    background-size: contain;
+    background-blend-mode: overlay;
+}
+
+h1 {
+    font-size: 36pt;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 4vw;
+}
+
+main section {
+    flex: 1;
+    text-align: justify;
+}
+
+main section h2 {
+    margin-top: 0px;
+}
+
+main form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    row-gap: 10vh;  
+}
+
+.password-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 10px;
+    flex: 1;
+}
+
+.password-buttons button {
+    background-color: #0a6a4a;
+    color: white;
+    font-size: 10pt;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button.weak-password {
+    background-color: #999900;
+}
+
+.password-buttons button:active {
+    background-color: #063c29;
+}
+
+.password-buttons button.weak-password:active {
+    background-color: #666600;
+}
+
+div.switch {
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.3em;
+}
+
+div.options {
+    display: flex;
+    flex: 5;
+    column-gap: 1em;
+}
+
+input[type="range"] {
+    width: -webkit-fill-available;
+}
+
+input[type="number"] {
+    text-align: center;
+}
+
+#maxLengthDisplay {
+    text-align: center;
+    font-size: x-small;
+}
+
+.password {
+    flex: 1;
+    min-width: -webkit-fill-available;
+    text-align: center;
+    border: solid thin;
+    border-radius: 10px;
+    font-size: x-large;
+    display: none;
+}
+
+.copy-button {
+    background-color: #f6bb43;
+    color: black;
+    font-size: 10pt;
+    padding: 0.5 em 1 em;
+    border: none;
+    border-radius: 10 px;
+    cursor: pointer;
+    display: none;
+}
+
+.copy-button:active {
+    background-color: #c98a0a;
+}
