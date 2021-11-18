@@ -20,11 +20,9 @@ function rollDices(nDices: number): string {
 
 function pickWords(nWords: number, wordList: string[]): string[] {
     const words = [];
-    const nDices = findNumberOfDicesForNumber(wordList.length);
 
     for (let i = 0; i < nWords; i++) {
-        let dices = rollDices(nDices);
-        let wordIndex = dicesToInt(dices, wordList.length);
+        let wordIndex = generateNumber(wordList.length);
 
         words.push(wordList[wordIndex]);
     }
