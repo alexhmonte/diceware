@@ -85,7 +85,9 @@ export function generatePassword(options: PasswordParameters): string {
         words = words.map((v, i, a) => startCase(v));
     }
     if (hasNumber) {
-        words = words.map((v, i, a) => i % 2 > 0 ? String(generateNumber(numberMaxValue)) : v);
+        const wordIndex = generateNumber(words.length);
+
+        words[wordIndex] = String(generateNumber(numberMaxValue));
     }
     while (passwordSize(words) > maxPassPhraseLength) {
         words.pop();
