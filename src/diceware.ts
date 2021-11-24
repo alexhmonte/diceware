@@ -8,7 +8,7 @@ async function loadWordlist(locale: string = 'pt-BR') {
 }
 
 function rollDices(nDices: number): string {
-    let dices = new Uint16Array(nDices);
+    let dices = new Uint32Array(nDices);
     let result = '';
 
     crypto.getRandomValues(dices);
@@ -24,7 +24,7 @@ function pickWords(nWords: number, wordList: string[]): string[] {
 
     for (let i = 0; i < nWords; i++) {
         let dices = rollDices(nDices);
-        let wordIndex = dicesToInt(dices, wordList.length);
+        let wordIndex = dicesToInt(dices);
 
         words.push(wordList[wordIndex]);
     }
@@ -37,8 +37,8 @@ function findNumberOfDicesForNumber(n: number): number {
     return parseInt(String(Math.floor(Math.log(n) / Math.log(base)) + 1));
 }
 
-function dicesToInt(dices: string, maxValue: number) {
-    return parseInt(dices, 6) % maxValue;
+function dicesToInt(dices: string) {
+    return parseInt(dices, 6);
 }
 
 function pickRandomSymbol() {
@@ -58,7 +58,7 @@ function generateNumber(maxValue: number): number {
     const nDices = findNumberOfDicesForNumber(maxValue);
     const dices = rollDices(nDices);
 
-    return dicesToInt(dices, maxValue);
+    return dicesToInt(dices) % maxValue;
 }
 
 export interface PasswordParameters {
