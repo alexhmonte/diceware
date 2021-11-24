@@ -20,9 +20,11 @@ function rollDices(nDices: number): string {
 
 function pickWords(nWords: number, wordList: string[]): string[] {
     const words = [];
+    const nDices = 5;
 
     for (let i = 0; i < nWords; i++) {
-        let wordIndex = generateNumber(wordList.length);
+        let dices = rollDices(nDices);
+        let wordIndex = dicesToInt(dices, wordList.length);
 
         words.push(wordList[wordIndex]);
     }
@@ -41,9 +43,7 @@ function dicesToInt(dices: string, maxValue: number) {
 
 function pickRandomSymbol() {
     const symbols = ['-', '/', ':', '$', '&', '@', '.', ',', '?', '!'];
-    const nDices = findNumberOfDicesForNumber(symbols.length);
-    const dices = rollDices(nDices);
-    const index  = dicesToInt(dices, symbols.length);
+    const index  = generateNumber(symbols.length);
 
     return symbols[index];
 }
@@ -82,13 +82,13 @@ export function generatePassword(options: PasswordParameters): string {
     if (hasStartCase) {
         words = words.map((v, i, a) => startCase(v));
     }
+    while (passwordSize(words) > maxPassPhraseLength) {
+        words.pop();
+    }
     if (hasNumber) {
         const wordIndex = generateNumber(words.length);
 
         words[wordIndex] = String(generateNumber(numberMaxValue));
-    }
-    while (passwordSize(words) > maxPassPhraseLength) {
-        words.pop();
     }
     return words.join(symbol);   
 }

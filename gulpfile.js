@@ -27,15 +27,26 @@ function textListToJson() {
         if (file.isBuffer()) {
             const text = file.contents.toString();
             const textByLine = text.split('\r\n');
-            const wordList = textByLine
-                .filter((v, i, a) => v.length < 7)
-                .filter((v, i, a) => i < 7777)
-                .map((v, i, a) => v.toLowerCase());
-            
+            let wordList = [];
+            let actualSize = 1;
+            const maxWordList = 7777;
+
+            while (wordList.length < maxWordList) {
+                let newWords = selectWordsBySize(textByLine, actualSize);
+
+                wordList.push(...newWords);
+                actualSize++;
+            }
+            wordList.splice(maxWordList);
+            wordList = wordList.map((v, i, a) => v.toLowerCase());   
             file.contents = Buffer.from(JSON.stringify(wordList));
         }
         cb(null, file);
     });
+}
+
+function selectWordsBySize(wordList, size) {
+    return wordList.filter((v, i, a) => v.length == size);
 }
 
 function buildWordLists() {
