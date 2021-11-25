@@ -115,3 +115,7 @@ input[type="number"] {
 .copy-button:active {
     background-color: #c98a0a;
 }
+
+a {
+    color: burlywood;
+}

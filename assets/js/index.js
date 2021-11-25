@@ -10,6 +10,15 @@ function onLoad() {
     });
 }
 
+function onClickCopy() {
+    const passwordDisplay = document.querySelector('#password');
+    
+    navigator
+        .clipboard
+        .writeText(passwordDisplay.textContent);
+    alert("Senha copiada com sucesso!");
+}
+
 function readPasswordOptions(nWords) {
     const hasSymbol = document.querySelector('#hasSimbol');
     const hasNumber = document.querySelector('#hasNumber');

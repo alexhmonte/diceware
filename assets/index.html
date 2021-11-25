@@ -16,15 +16,22 @@
         <section>
             <h2>Diceware</h2>
             <p>
-                Diceware is used to generate cryptographically strong passphrases.
-                Don't let that frighten you away though, a passphrase is just a 
-                password made of words you can remember. It is based on the principle
-                that truly random selection of words from a wordlist, can result
-                in easily memorable passwords that are also extremely resistant 
-                to attack. Traditional Diceware uses rolls of physical dice, this 
-                application uses a strong random number generator in place of the dice.
-                Passwords that are six words or longer are thought to be safe for any
-                very high security applications.
+                <a href="">Diceware</a> é um método utilizado para gerar senhas fortes
+                que são fáceis de lembrar. O método basea-se no princípio de seleção
+                aleatória de palavras a partir de uma lista de palavras, o que gera 
+                senhas resistentes a ataque de força bruta.
+                O método tradicional Diceware pede a utilização de dados como fonte
+                de números aleatórios. Esta aplicação utiliza um gerador de números
+                aleatórios criptograficamente fortes no lugar de dados.
+                Senha com seis ou mais palavras é segura o suficiente para uso
+                em ambiente que necessitam de alta segurança.
+                Senhas com cinco palavras são fortes o suficiente para serem utilizados
+                como senha de acesso onde haja certos mecanismos de controle, como
+                número limitado de tentativas, bloqueio temporário de acesso ou
+                tempo de vida para a senha.
+                Adicionalmente, é possível incluir alguns elementos como números, símbolos,
+                letras maíusculas e definir um tamanho máximo para a senha para o cumprimento
+                de regras para a aceitação de senhas.
             </p>
         </section>
         <form>
@@ -73,7 +80,7 @@
                 </div>
             </div>
             <div class="password" id="password"></div>
-            <button type="button" class="copy-button">Copiar</button>
+            <button type="button" class="copy-button" onclick="onClickCopy()">Copiar</button>
         </form>        
     </main>
 </body>

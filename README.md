@@ -11,6 +11,6 @@ So, if you will add a new wordlist make sure it will have at less 7777 words com
 If you want to run the code in your computer just clone just clone the repository and execute the following commands:
 
 ```console
-npm init
+npm install
 npm run start
 ```
