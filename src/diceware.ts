@@ -1,7 +1,9 @@
-const wordList = await loadWordlist();
+const wordList: string[] = await loadWordlist();
 
-async function loadWordlist(locale: string = 'pt-BR') {
-    let wordlistUri = `wordlists/${locale}.json`;
+const symbols = ['-', ':', ';', '$', '@', '.', ',', '?', '!', '#', '%', '*', '+', '=', '_', '|', '~'];
+
+async function loadWordlist(language: string = 'pt') {
+    let wordlistUri = `wordlists/diceware.wordlist.${language}.json`;
     let response = await fetch(wordlistUri);
 
     return await response.json();
@@ -9,13 +11,13 @@ async function loadWordlist(locale: string = 'pt-BR') {
 
 function rollDices(nDices: number): string {
     let dices = new Uint32Array(nDices);
-    let result = '';
+    let result = [];
 
     crypto.getRandomValues(dices);
     for (let i = 0; i < nDices; i++) {
-        result = result.concat(String(dices[i] % 6));
+        result.push(String(dices[i] % 6));
     }
-    return result;
+    return result.join('');
 }
 
 function pickWords(nWords: number, wordList: string[]): string[] {
@@ -31,21 +33,18 @@ function pickWords(nWords: number, wordList: string[]): string[] {
     return words;
 }
 
+function pickRandomSymbol() {
+    const nDices = findNumberOfDicesForNumber(symbols.length - 1);
+    const dices = rollDices(nDices);
+    const symbolIndex = dicesToInt(dices) % symbols.length;
+
+    return symbols[symbolIndex];
+}
+
 function findNumberOfDicesForNumber(n: number): number {
     const base = 6;
 
-    return parseInt(String(Math.floor(Math.log(n) / Math.log(base)) + 1));
-}
-
-function dicesToInt(dices: string) {
-    return parseInt(dices, 6);
-}
-
-function pickRandomSymbol() {
-    const symbols = ['-', '/', ':', '$', '&', '@', '.', ',', '?', '!'];
-    const index  = generateNumber(symbols.length);
-
-    return symbols[index];
+    return Math.floor(Math.log(n) / Math.log(base)) + 1;
 }
 
 function startCase(word: string): string {
@@ -54,11 +53,10 @@ function startCase(word: string): string {
     return first.toUpperCase() + rest.join('');
 }
 
-function generateNumber(maxValue: number): number {
-    const nDices = findNumberOfDicesForNumber(maxValue);
-    const dices = rollDices(nDices);
+function dicesToInt(dices: string): number {
+    const base = 6;
 
-    return dicesToInt(dices) % maxValue;
+    return parseInt(dices, base);
 }
 
 export interface PasswordParameters {
@@ -74,7 +72,6 @@ export function generatePassword(options: PasswordParameters): string {
     const symbol = options.hasSpecialSymbols ?? false
             ? pickRandomSymbol()
             : ' ';
-    const numberMaxValue = 1000;
     const hasStartCase = options.hasStartCase ?? false;
     const hasNumber = options.hasNumber ?? false;
     const maxPassPhraseLength = options.maxPassPhraseLength ?? 80;
@@ -86,9 +83,13 @@ export function generatePassword(options: PasswordParameters): string {
         words.pop();
     }
     if (hasNumber) {
-        const wordIndex = generateNumber(words.length);
+        let nDices = findNumberOfDicesForNumber(words.length - 1);
+        let dices = rollDices(nDices);
+        const wordIndex = dicesToInt(dices) % words.length;
 
-        words[wordIndex] = String(generateNumber(numberMaxValue));
+        nDices = findNumberOfDicesForNumber(999);
+        dices = rollDices(nDices);
+        words[wordIndex] = String(dicesToInt(dices) % 1000);
     }
     return words.join(symbol);   
 }

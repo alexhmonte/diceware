@@ -26,19 +26,17 @@ function textListToJson() {
     return through2.obj(function (file, _, cb) {
         if (file.isBuffer()) {
             const text = file.contents.toString();
-            const textByLine = text.split('\r\n');
-            let wordList = [];
-            let actualSize = 1;
-            const maxWordList = 7777;
+            const textByLine = text.split('\n');
+            const wordListIdealSize = 7776;
+            const wordList = textByLine
+                .map((v, i, a) => v.split('   '))
+                .map((v, i, a) => v[1])
+                .map((v, i, a) => v.toLowerCase());
 
-            while (wordList.length < maxWordList) {
-                let newWords = selectWordsBySize(textByLine, actualSize);
-
-                wordList.push(...newWords);
-                actualSize++;
+            if (wordList.length != wordListIdealSize) {
+                console.warn(`The list of words must have 7776 words, but ha only ${wordList.length}`);
+                return;
             }
-            wordList.splice(maxWordList);
-            wordList = wordList.map((v, i, a) => v.toLowerCase());   
             file.contents = Buffer.from(JSON.stringify(wordList));
         }
         cb(null, file);
@@ -46,11 +44,13 @@ function textListToJson() {
 }
 
 function selectWordsBySize(wordList, size) {
-    return wordList.filter((v, i, a) => v.length == size);
+    return wordList
+        .map((v, i, a) => v.split('   '))
+        .filter((v, i, a) => v[1].length == size);
 }
 
 function buildWordLists() {
-    return src('wordlists/*.txt')
+    return src('wordlists/diceware.wordlist.*')
         .pipe(textListToJson())
         .pipe(rename(function(path) {
             path.extname = '.json';
