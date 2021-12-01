@@ -67,7 +67,12 @@ export interface PasswordParameters {
     maxPassPhraseLength?: number;
 }
 
-export function generatePassword(options: PasswordParameters): string {
+export interface GeneratedPassword {
+    secret: string;
+    entropy: number;
+}
+
+export function generatePassword(options: PasswordParameters): GeneratedPassword {
     let words = pickWords(options.nWords, wordList);
     const symbol = options.hasSpecialSymbols ?? false
             ? pickRandomSymbol()
@@ -91,11 +96,23 @@ export function generatePassword(options: PasswordParameters): string {
         dices = rollDices(nDices);
         words[wordIndex] = String(dicesToInt(dices) % 1000);
     }
-    return words.join(symbol);   
+    return {
+        secret: words.join(symbol),
+        entropy: calculateEntropy(words, options)
+    };
 }
 
 function passwordSize(words: string[]): number {
     const size = words.length - 1;
     
     return words.reduce((previous, current, index, array) => previous + current.length, size);
+}
+
+function calculateEntropy(password: string[], options: PasswordParameters): number {
+    const nNumbers = options.hasNumber ?? false ? 1 : 0;
+    const nSymbols = options.hasSpecialSymbols ?? false ? 1 : 0;
+    const nWords = password.length - nNumbers;
+    const startCaseMultiplier = options.hasStartCase ?? false ? 2 : 1;
+    
+    return Math.trunc(nWords * Math.log2(startCaseMultiplier * wordList.length) + nSymbols * Math.log2(symbols.length) + nNumbers * Math.log2(1000));
 }

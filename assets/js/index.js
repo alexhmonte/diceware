@@ -39,8 +39,10 @@ function onGeneratePassword(nWords) {
     const password = diceware.generatePassword(options);
     const passwordDisplay = document.querySelector('#password');
     const copyButton = document.querySelector('.copy-button');
+    const entropyDisplay = document.querySelector('#entropy');
 
-    passwordDisplay.textContent = password;
+    passwordDisplay.textContent = password.secret;
     passwordDisplay.style.display = 'block';
     copyButton.style.display = 'block';
+    entropyDisplay.textContent = password.entropy;
 }
